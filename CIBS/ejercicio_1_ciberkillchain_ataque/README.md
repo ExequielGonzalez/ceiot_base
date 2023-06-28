@@ -1,95 +1,105 @@
 # Ejercicio CiberKillChain - Ataque
+## Alumno
 
-Crear un nuevo documento en esta carpeta con las siguientes secciones:
-
- * Alumno
- * Muy breve descripción del trabajo práctico con link si hay
- * Resolución
-
+Exequiel Gonzalez
 
 
 ## Enunciado
 
 Armar una cyberkillchain usando técnicas de la matriz de Att&ck para un escenario relacionado al trabajo práctico de la carrera.
 
-### Instrucciones
+## Datos del trabajo práctico
 
-Debe haber un objetivo para el ataque, algunas ideas inspiradoras:
+Se tiene un sistema que permite un control de acceso apto para grandes 
+superficies en las que es muy costoso o imposible utilizar soluciones tradicionales como las que 
+dependen de ethernet o wifi.
+Si bien en muchos casos los sistemas de control de acceso son económicos y se encuentran 
+muy difundidos, muchos dependen de una infraestructura preexistente que es típica de las 
+ciudades. Sin embargo, en determinados casos como barrios residenciales alejados de la 
+ciudad, o grandes naves industriales, resulta muy dificultoso trasladar los cables de 
+comunicación necesarios a cada uno de los puntos de acceso. Es por esto por lo que se 
+propone un nuevo sistema que utilice como medio de comunicación entre los distintos puntos 
+la tecnología Wireless LoRa.
 
-* Obtener información con algún tipo de valor.
-* Alguna variante extorsiva de ransomware.
-* Usar de plataforma para atacar a otros, ya sea por ancho de banda, anonimización o como desplazamiento lateral hacia un objetivo más interesante.
-* Usar la plataforma para extraerle valor como criptominado o almacenamiento de información ilegal.
-* Sabotear la plataforma a favor de la competencia, tipo stuxnet.
+El sistema se utilizará para el ingreso y egreso a distintas partes de una fabrica.
 
-El escenario debe asumir el sistema ya funcionando en el futuro.
+Un detalle no menor es que todavía no empecé el trabajo práctico, por lo tanto hay detalles de la implementación no definidos.
 
-Debe ser en primera persona, es el punto de vista del atacante.
+-   [Más detalles](https://drive.google.com/file/d/1Hrwj39pJGyVZcCzS1ukyjpUAYAJFTGP2/view) 
 
-Es recomendable hacer dos o tres pasadas, en la primera la idea, en las siguientes refinamientos especificando las técnicas.
-PURO ATAQUE, nada de andar pensando cómo corregir nada.
+## Objetivo del ataque
 
-Para cada etapa, si hay varias medidas posibles, ordenar dejando para lo último lo que se va a hacer en el siguiente paso.
+El objetivo es utilizar vulnerar un sistema como el anterior que se encuentra instalado en una fabrica, de forma de poder ingresar en la oficina de uno de los altos mandos y sustraer información se sabe que solo guarda localmente.
 
-### Ejemplo adaptado a un juego de guerra inventado
+Para esto, se planea analizar el tráfico de datos de la red LoRa para intentar hacerse pasar por una de las personas autorizadas en el sistema de control de acceso.
 
-Objetivo del ataque: inhabilitar sin destruir el puerto enemigo con vistas a posteriormente tomarlo.
+Se tiene como dato imporante que cada uno de los puntos de acceso envia su información a ser verificada en un servidor utilizando tecnología LoRa.
 
-* Reconnaissance
-  - Imagen satelital identifica una pista de aterrizaje.
-  - Espías dicen que por el puerto entra el combustible.
-  - Espías locales dicen que la playa cercana no tiene buena vigilancia.
+###  Cyberkillchain
 
-* Weaponization
-  - **Puedo** preparar un bombardeo.
-  - **Decido** preparar un equipo de comandos de sabotage.
+
+1. Reconnaissance
+>Descripción: El atacante junta información de la organización a la cual quiere hacer un daño. Se arma un grafo de información donde el nodo central es la victima.
+
+Se recopila información sobre el sistema de control de acceso basado en la tecnología LoRa y las personas autorizadas en la empresa.
+
+ Técnicas utilizadas:
+
+
+-   [T1593](https://attack.mitre.org/techniques/T1593/) - Search Open Websites/Domains: Se investigan perfiles de redes sociales y páginas web de los emplados y personal autorizado para obtener información personal, patrones de comportamiento y posibles credenciales.
+Además, se busca información sobre la tecnología LoRa utilizada en el sistema de control de acceso.
+
+
+2. Weaponization
+> Descripción: Definición y diseño del plan para atacar a la orgnización. 
+
+Se preparan los recursos necesarios para realizar un ataque basado en el análisis del tráfico de datos de la red LoRa
+
+Técnicas utilizadas:
+
+-   [T1583](https://attack.mitre.org/techniques/T1583/)  -  Acquire Infrastructure Se adquieren dispositivos capaces de interferir con las comunicaciones LoRa para interrumpir el flujo normal de datos y capturar paquetes de información.
+
+
+
+3. Delivery
+> Descripción: Se pone en marcha el inicio del plan. Se envia los recursos necesario para comenzar con el ataque.
+
+Se lleva a cabo el despliegue de dispositivos de interferencia y sniffing en el área de la oficina objetivo para capturar el tráfico de datos LoRa.
+
+-   [T1040](https://attack.mitre.org/techniques/T1040/)   - Sniffing: Se utilizan herramientas de sniffing para capturar y analizar el tráfico de datos LoRa y extraer información relevante.
+Se analizan los paquetes de datos capturados y se busca identificar información sensible y credenciales que permitan hacerse pasar por una de las personas autorizadas en el sistema.
   
-* Delivery
-  - Envío al equipo de sabotage a la playa cercana en submarino.
+4. Exploit
+
+>Descripción: El o los recursos iniciales del ataque logran entrar en la organización de forma controlada (sin ser detectados como una potencial amenaza).
+
+Se utiliza la información y credenciales obtenidas para ingresar en el sistema como una persona autorizada.
   
-* Exploit
-  - El equipo logra desembarcar sin incidentes en la playa.
-  
-* Installation  
-  - El equipo se hace pasar por una compañia de circo como camuflaje.
+ -   [T1078](https://attack.mitre.org/techniques/T1040/)   -  Valid Accounts: Se utilizan las credenciales obtenidas para autenticarse como una persona autorizada en el sistema de control de acceso LoRa y obtener acceso no autorizado a las áreas restringidas.
+ 
 
-* Command & Control
-  - **Puedo** utilizar palomas mensajeras.
-  - **Decido** utilizar Super High TeraHertz Radio que el adversario no puede detectar.
-  
-* Actions on Objectives
-  - El equipo de comandos provoca daños menores en las cañerías.
-  - El equipo de comandos coloca minas en el puerto dejando un camino para el desembarco.
-  
-### Ejemplo stuxnet
+  5. Installation
 
-Deducido a partir de https://attack.mitre.org/software/S0603/
+>Descripción: Se establece una presencia persistente en el sistema comprometido para mantener el acceso y control continuo.
 
-Objetivo del ataque: dañar las centrifugadoras de uranio
+Dado que el objetivo principal del ataque es ingresar a la oficina del alto mando de la empresa y sustraer cierta información local no es relevante realizar esta etapa.
 
-* Reconnaissance
-  - TBD
-  - TBD
-  - TBD
+6. Command & Control
 
-* Weaponization
-  - Se arma una pieza de malware utilizando zero days, información del fabricante de los sistemas SCADA y PLC
-  
-* Delivery
-  - T1091 	Replication Through Removable Media https://attack.mitre.org/techniques/T1091
-* Exploit
-  - T1091 	Replication Through Removable Media https://attack.mitre.org/techniques/T1091
-  
-* Installation  
-  - TBD
+>Descripción: Se establece una comunicación encubierta entre el atacante y el sistema comprometido sin levantar sospechas.
 
-* Command & Control
-  - TBD
-  
-* Actions on Objectives
+Se configura una comunicación encubierta entre el atacante y el sistema comprometido para mantener el control y recibir instrucciones adicionales sin ser detectado.
 
-  - T0831 	Manipulation of Control https://attack.mitre.org/techniques/T0831
+- [T1071](https://attack.mitre.org/techniques/T1071/) - Standard Application Layer Protocol: Se utiliza un protocolo de capa de aplicación estándar para establecer la comunicación encubierta y evitar la detección.
 
+7. Actions on Objectives
 
-  
+>Descripción: El atacante lleva a cabo acciones específicas para lograr su objetivo final.
+
+Se accede a la oficina del alto mando utilizando las credenciales obtenidas y sustrae las pertenencias valiosas.
+
+- [T1005](https://attack.mitre.org/techniques/T1005/) - Data from Local System: Se accede a los archivos y datos almacenados localmente en la oficina del alto mando para identificar las pertenencias valiosas.
+- [T1564](https://attack.mitre.org/techniques/T1564/001/) - Hide Artifacts: Se ocultan los registros y rastros de actividad comprometedora para evitar ser detectado.
+- [T1560](https://attack.mitre.org/techniques/T1560/001/) - Archive Collected Data: Se recopilan y se almacenan los datos y pertenencias sustraídas para su posterior uso o venta.
+
 
